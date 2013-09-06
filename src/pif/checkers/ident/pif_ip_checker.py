@@ -1,10 +1,11 @@
 __title__ = 'pif.checkers.ident.pif_ip_checker'
-__version__ = '0.4'
-__build__ = 0x000004
+__version__ = '0.5'
+__build__ = 0x000005
 __author__ = 'Artur Barseghyan'
 __all__ = ('IdentmeIPChecker', 'V4IdentmeIPChecker', 'V6IdentmeIPChecker')
 
-from urllib import urlopen
+from six.moves.urllib.request import urlopen
+#from urllib import urlopen
 
 from pif.base import BasePublicIPChecker, registry
 
@@ -23,7 +24,7 @@ class IdentmeIPChecker(BasePublicIPChecker):
         try:
             data = str(urlopen('http://ident.me').read())
             return data
-        except Exception, e:
+        except Exception as e:
             pass
 
 registry.register(IdentmeIPChecker)
@@ -44,7 +45,7 @@ class V4IdentmeIPChecker(BasePublicIPChecker):
         try:
             data = str(urlopen('http://v4.ident.me').read())
             return data
-        except Exception, e:
+        except Exception as e:
             pass
 
 registry.register(V4IdentmeIPChecker)
@@ -65,7 +66,7 @@ class V6IdentmeIPChecker(BasePublicIPChecker):
         try:
             data = str(urlopen('http://v6.ident.me').read())
             return data
-        except Exception, e:
+        except Exception as e:
             pass
 
 registry.register(V6IdentmeIPChecker)

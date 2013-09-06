@@ -5,7 +5,7 @@ __author__ = 'Artur Barseghyan'
 __all__ = ('PifTest',)
 
 import unittest
-
+from six import print_
 from pif.discover import autodiscover
 #from pif.conf import set_setting, get_setting, reset_to_defaults_settings
 #from pif import defaults
@@ -32,13 +32,14 @@ def print_info(func):
         if TRACK_TIME:
             timer.stop() # Stop timer
 
-        print '\n%s' % func.__name__
-        print '============================'
-        print '""" %s """' % func.__doc__.strip()
-        print '----------------------------'
-        if result is not None: print result
+        print_('\n%s' % func.__name__)
+        print_('============================')
+        print_('""" %s """' % func.__doc__.strip())
+        print_('----------------------------')
+        if result is not None:
+            print_(result)
         if TRACK_TIME:
-            print 'done in %s seconds' % timer.duration
+            print_('done in %s seconds' % timer.duration)
 
         return result
     return inner

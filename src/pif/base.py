@@ -1,6 +1,6 @@
 __title__ = 'pif.base'
-__version__ = '0.4'
-__build__ = 0x000004
+__version__ = '0.5'
+__build__ = 0x000005
 __author__ = 'Artur Barseghyan'
 __all__ = ('BasePublicIPChecker', 'registry')
 
@@ -54,7 +54,7 @@ class PublicIPCheckerRegistry(object):
         if not issubclass(cls, BasePublicIPChecker):
             raise InvalidRegistryItemType("Invalid item type `%s` for registry `%s`" % (cls, self.__class__))
 
-        if not cls in self._registry:
+        if not cls.uid in self._registry:
             self._registry[cls.uid] = cls
             return True
         else:
@@ -68,13 +68,13 @@ class PublicIPCheckerRegistry(object):
             the checker name.
         :return bool: True if unregistered and False otherwise.
         """
-        if not isinstance(checker, basestring):
+        if not isinstance(checker, str):
             if not issubclass(cls, BasePublicIPChecker):
                 raise InvalidRegistryItemType("Invalid item type `%s` for registry `%s`" % (cls, self.__class__))
 
             checker = cls.uid
 
-        if self._registry.has_key(checker):
+        if checker in self._registry:
             self._registry.pop(checker)
             return True
         else:

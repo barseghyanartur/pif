@@ -6,7 +6,7 @@ try:
 except:
     readme = ''
 
-version = '0.4'
+version = '0.5'
 
 setup(
     name = 'pif',
@@ -14,9 +14,15 @@ setup(
     description = ("Public IP address checker."),
     long_description=readme,
     classifiers = [
-        'Programming Language :: Python',
-        'Intended Audience :: Developers',
-        'Operating System :: OS Independent',
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Development Status :: 4 - Beta",
+        "Topic :: Internet"
     ],
     keywords = 'public ip checker, ip',
     author = 'Artur Barseghyan',
@@ -25,5 +31,5 @@ setup(
     package_dir = {'':'src'},
     packages = find_packages(where='./src'),
     license = 'GPL 2.0/LGPL 2.1',
-    install_requires = []
+    install_requires = ['six==1.4.1',]
 )

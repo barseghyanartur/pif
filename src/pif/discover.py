@@ -1,6 +1,6 @@
 __title__ = 'pif.__init__'
-__version__ = '0.4'
-__build__ = 0x000004
+__version__ = '0.5'
+__build__ = 0x000005
 __author__ = 'Artur Barseghyan'
 __all__ = ('autodiscover',)
 
@@ -10,6 +10,8 @@ try:
     from importlib import import_module
 except ImportError:
     import_module = __import__
+
+from six import print_
 
 from pif.helpers import PROJECT_DIR
 from pif.conf import get_setting
@@ -30,11 +32,11 @@ def autodiscover():
                 import_module(
                     "pif.%s.%s.%s" % (IP_CHECKERS_DIR, app_path, IP_CHECKER_MODULE_NAME)
                     )
-            except ImportError, e:
+            except ImportError as e:
                 if DEBUG:
-                    print e
-            except Exception, e:
+                    print_(e)
+            except Exception as e:
                 if DEBUG:
-                    print e
+                    print_(e)
         else:
             pass
