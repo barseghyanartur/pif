@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 try:
-    readme = open(os.path.join(os.path.dirname(__file__), 'readme.rst')).read()
+    readme = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 except:
     readme = ''
 
