@@ -6,7 +6,7 @@ try:
 except:
     readme = ''
 
-version = '0.5'
+version = '0.6'
 
 setup(
     name = 'pif',
@@ -27,9 +27,9 @@ setup(
     keywords = 'public ip checker, ip',
     author = 'Artur Barseghyan',
     author_email = 'artur.barseghyan@gmail.com',
-    url = 'https://bitbucket.org/barseghyanartur/pif',
+    url = 'https://github.com/barseghyanartur/pif',
     package_dir = {'':'src'},
     packages = find_packages(where='./src'),
     license = 'GPL 2.0/LGPL 2.1',
-    install_requires = ['six==1.4.1',]
+    install_requires = ['six>=1.1.0',]
 )

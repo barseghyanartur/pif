@@ -1,14 +1,14 @@
+from __future__ import print_function
+
 __title__ = 'pif.tests'
-__version__ = '0.4'
-__build__ = 0x000004
 __author__ = 'Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('PifTest',)
 
 import unittest
-from six import print_
+
 from pif.discover import autodiscover
-#from pif.conf import set_setting, get_setting, reset_to_defaults_settings
-#from pif import defaults
 from pif.utils import get_public_ip, list_checkers
 from pif.base import registry, BasePublicIPChecker
 
@@ -32,14 +32,14 @@ def print_info(func):
         if TRACK_TIME:
             timer.stop() # Stop timer
 
-        print_('\n%s' % func.__name__)
-        print_('============================')
-        print_('""" %s """' % func.__doc__.strip())
-        print_('----------------------------')
+        print('\n{0}'.format(func.__name__))
+        print('============================')
+        print('""" {0} """'.format(func.__doc__.strip()))
+        print('----------------------------')
         if result is not None:
-            print_(result)
+            print(result)
         if TRACK_TIME:
-            print_('done in %s seconds' % timer.duration)
+            print('done in {0} seconds'.format(timer.duration))
 
         return result
     return inner

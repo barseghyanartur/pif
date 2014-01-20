@@ -1,20 +1,23 @@
+from __future__ import print_function
+
 __title__ = 'pif.__init__'
-__version__ = '0.5'
-__build__ = 0x000005
 __author__ = 'Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('autodiscover',)
 
 import os
+import logging
 
 try:
     from importlib import import_module
 except ImportError:
     import_module = __import__
 
-from six import print_
-
 from pif.helpers import PROJECT_DIR
 from pif.conf import get_setting
+
+logger = logging.getLogger(__name__)
 
 def autodiscover():
     """
@@ -34,9 +37,9 @@ def autodiscover():
                     )
             except ImportError as e:
                 if DEBUG:
-                    print_(e)
+                    logger.debug(str(e))
             except Exception as e:
                 if DEBUG:
-                    print_(e)
+                    logger.debug(str(e))
         else:
             pass

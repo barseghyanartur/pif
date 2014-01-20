@@ -1,10 +1,10 @@
-__title__ = 'pif.utils'
-__version__ = '0.5'
-__build__ = 0x000005
-__author__ = 'Artur Barseghyan'
-__all__ = ('ensure_autodiscover', 'list_checkers', 'get_public_ip')
+from __future__ import print_function
 
-from six import print_
+__title__ = 'pif.utils'
+__author__ = 'Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('ensure_autodiscover', 'list_checkers', 'get_public_ip')
 
 from pif.base import registry
 from pif.discover import autodiscover
@@ -45,7 +45,7 @@ def get_public_ip(preferred_checker=None, print_info=False):
         ip = ip_checker.get_public_ip()
 
         if print_info:
-            print_('provider: ', ip_checker_cls)
+            print('provider: ', ip_checker_cls)
         return ip
 
     # Using all checkers.
@@ -56,7 +56,7 @@ def get_public_ip(preferred_checker=None, print_info=False):
             ip = ip_checker.get_public_ip()
             if ip:
                 if print_info:
-                    print_('provider: ', ip_checker_cls)
+                    print('provider: ', ip_checker_cls)
                 return ip
 
         except Exception as e:
