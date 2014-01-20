@@ -1,8 +1,5 @@
-Package
 ==================================
 pif
-
-Description
 ==================================
 Discovers your public IP address using pre-defined checkers (external services).
 
