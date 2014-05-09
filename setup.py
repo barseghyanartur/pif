@@ -6,7 +6,15 @@ try:
 except:
     readme = ''
 
-version = '0.6'
+version = '0.7'
+
+exec_dirs = [
+    'src/pif/bin/',
+]
+
+execs = []
+for exec_dir in exec_dirs:
+    execs += [os.path.join(exec_dir, f) for f in os.listdir(exec_dir)]
 
 setup(
     name = 'pif',
@@ -30,6 +38,11 @@ setup(
     url = 'https://github.com/barseghyanartur/pif',
     package_dir = {'':'src'},
     packages = find_packages(where='./src'),
+    include_package_data = True,
+    package_data = {
+        'pif': execs,
+    },
+    scripts = ['src/pif/bin/get-public-ip',],
     license = 'GPL 2.0/LGPL 2.1',
-    install_requires = ['six>=1.1.0',]
+    install_requires = ['requests>=1.2.3',]
 )

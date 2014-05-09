@@ -1,6 +1,14 @@
 Changelog
 ==================================
 
+0.7
+----------------------------------
+2014-05-09
+
+- Added command line tools.
+- The ``print_info`` argument of the ``pif.utils.get_public_ip`` function is replaced with ``verbose``.
+- The ``requests`` library is used instead of standard urlopen.
+
 0.6
 ----------------------------------
 2014-01-20

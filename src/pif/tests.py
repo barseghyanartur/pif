@@ -65,7 +65,7 @@ class PifTest(unittest.TestCase):
         """
         Test get IP.
         """
-        res = get_public_ip(print_info=True)
+        res = get_public_ip(verbose=True)
         assert res
         return res
 
@@ -74,7 +74,7 @@ class PifTest(unittest.TestCase):
         """
         Test get IP using preferred checker `whatismyip.com`.
         """
-        res = get_public_ip('whatismyip.com', print_info=True)
+        res = get_public_ip('whatismyip.com', verbose=True)
         assert res
         return res
 
@@ -83,7 +83,7 @@ class PifTest(unittest.TestCase):
         """
         Test get IP using preferred checker `ident.me`.
         """
-        res = get_public_ip('ident.me', print_info=True)
+        res = get_public_ip('ident.me', verbose=True)
         assert res
         return res
 
@@ -92,7 +92,7 @@ class PifTest(unittest.TestCase):
         """
         Test get IP using preferred checker `dyndns.com`.
         """
-        res = get_public_ip('dyndns.com', print_info=True)
+        res = get_public_ip('dyndns.com', verbose=True)
         assert res
         return res
 

@@ -6,15 +6,7 @@ __all__ = ('DyndnsIPChecker',)
 
 import re
 
-from six import PY3
-
-try:
-    from six.moves.urllib.request import urlopen
-except ImportError as e:
-    if PY3:
-        from urllib.request import urlopen
-    else:
-        from urllib import urlopen
+from requests import get
 
 from pif.base import BasePublicIPChecker, registry
 
@@ -31,9 +23,11 @@ class DyndnsIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = str(urlopen('http://checkip.dyndns.com/').read())
+            data = get('http://checkip.dyndns.com/').text
             return re.compile(r'Address: (\d+\.\d+\.\d+\.\d+)').search(data).group(1)
         except Exception as e:
-            pass
+            if self.verbose:
+                print(e)
+
 
 registry.register(DyndnsIPChecker)

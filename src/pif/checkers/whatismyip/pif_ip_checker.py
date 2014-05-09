@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 __title__ = 'pif.checkers.whatismyip.pif_ip_checker'
 __author__ = 'Artur Barseghyan'
 __copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
@@ -6,15 +8,7 @@ __all__ = ('WhatismyipIPChecker',)
 
 import re
 
-from six import PY3
-
-try:
-    from six.moves.urllib.request import urlopen
-except ImportError as e:
-    if PY3:
-        from urllib.request import urlopen
-    else:
-        from urllib import urlopen
+from requests import get
 
 from pif.base import BasePublicIPChecker, registry
 
@@ -31,9 +25,11 @@ class WhatismyipIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = str(urlopen('http://www.whatismyip.com/ip-address-lookup/').read())
+            data = get('http://www.whatismyip.com/ip-address-lookup/').text
             return re.compile(r'name="IP"(.*) value="(\d+\.\d+\.\d+\.\d+)"').search(data).group(2)
         except Exception as e:
-            pass
+            if self.verbose:
+                print(e)
+
 
 registry.register(WhatismyipIPChecker)

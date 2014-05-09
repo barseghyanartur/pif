@@ -14,9 +14,14 @@ class BasePublicIPChecker(object):
     Base public IP checker.
     """
     uid = None
+    verbose = False
 
-    def __init__(self):
+    def __init__(self, verbose=False):
+        """
+        :param bool verbose:
+        """
         assert self.uid
+        self.verbose = verbose
 
     def get_local_ip(self):
         """

@@ -1,8 +1,5 @@
-Package
 ==================================
 pif
-
-Description
 ==================================
 Discovers your public IP address using pre-defined checkers (external services).
 
@@ -57,6 +54,26 @@ follows.
 >>>
 >>> get_public_ip('mypublicipchecker') # Get public IP using the preferred checker
 
+Command line usage
+----------------------------------
+It's possible to generate a signed URL from command line using the `pif.commands.get_public_ip`
+module.
+
+>>> optional arguments:
+>>>   -h, --help            show this help message and exit
+>>>   -c PREFERRED_CHECKER, --checker PREFERRED_CHECKER
+>>>                         `preferred_checker` value
+>>>   -v VERBOSE, --verbose VERBOSE
+>>>                         `verbose` value
+
+:Example: (simple)
+
+    $ get-public-ip
+
+:Example: (with preferred checked and verbose output)
+
+    $ get-public-ip -c whatismyip.com -v 1
+
 License
 ==================================
 GPL 2.0/LGPL 2.1
@@ -70,9 +87,8 @@ Author
 Artur Barseghyan <artur.barseghyan@gmail.com>
 
 Indices and tables
-==================
+==================================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

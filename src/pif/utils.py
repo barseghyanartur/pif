@@ -24,12 +24,12 @@ def list_checkers():
     """
     return registry._registry.keys()
 
-def get_public_ip(preferred_checker=None, print_info=False):
+def get_public_ip(preferred_checker=None, verbose=False):
     """
     Gets IP using one of the services.
 
     :param str preffered checker: Checker UID. If given, the preferred checker is used.
-    :param bool print_info: If set to True, debug info is printed.
+    :param bool verbose: If set to True, debug info is printed.
     :return str:
     """
     ensure_autodiscover()
@@ -41,25 +41,26 @@ def get_public_ip(preferred_checker=None, print_info=False):
         if not ip_checker_cls:
             return False
 
-        ip_checker = ip_checker_cls()
+        ip_checker = ip_checker_cls(verbose=verbose)
         ip = ip_checker.get_public_ip()
 
-        if print_info:
+        if verbose:
             print('provider: ', ip_checker_cls)
         return ip
 
     # Using all checkers.
 
     for ip_checker_name, ip_checker_cls in registry._registry.items():
-        ip_checker = ip_checker_cls()
+        ip_checker = ip_checker_cls(verbose=verbose)
         try:
             ip = ip_checker.get_public_ip()
             if ip:
-                if print_info:
+                if verbose:
                     print('provider: ', ip_checker_cls)
                 return ip
 
         except Exception as e:
-            pass
+            if verbose:
+                print(e)
 
     return False

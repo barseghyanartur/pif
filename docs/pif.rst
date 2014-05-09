@@ -1,10 +1,42 @@
 pif Package
 ===========
 
+:mod:`pif` Package
+------------------
+
+.. automodule:: pif.__init__
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`base` Module
 ------------------
 
 .. automodule:: pif.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`benchmark` Module
+-----------------------
+
+.. automodule:: pif.benchmark
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`conf` Module
+------------------
+
+.. automodule:: pif.conf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`defaults` Module
+----------------------
+
+.. automodule:: pif.defaults
     :members:
     :undoc-members:
     :show-inheritance:
@@ -33,6 +65,14 @@ pif Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`tests` Module
+-------------------
+
+.. automodule:: pif.tests
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 :mod:`utils` Module
 -------------------
 
@@ -40,3 +80,12 @@ pif Package
     :members:
     :undoc-members:
     :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+
+    pif.checkers
+    pif.commands
+
