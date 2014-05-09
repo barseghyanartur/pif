@@ -3,6 +3,7 @@
 .gitignore~
 .hgtags
 .hg/
+.tox/
 
 build/
 builddocs/
