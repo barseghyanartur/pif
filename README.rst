@@ -56,7 +56,7 @@ follows.
 
 Command line usage
 ----------------------------------
-It's possible to generate a signed URL from command line using the `pif.commands.get_public_ip`
+It's possible to get your public IP address from command line using the `pif.commands.get_public_ip`
 module.
 
 >>> optional arguments:
