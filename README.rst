@@ -7,13 +7,19 @@ Installation
 ==================================
 Install with latest stable version from PyPI
 
+.. code-block:: none
+
     $ pip install pif
 
 or install the latest stable version from source
 
+.. code-block:: none
+
     $ pip install -e hg+https://bitbucket.org/barseghyanartur/pif@stable#egg=pif
 
 or install into python path
+
+.. code-block:: none
 
     $ python setup.py install
 
@@ -25,52 +31,66 @@ Basic usage
 ----------------------------------
 Get public IP
 
->>> from pif import get_public_ip
->>> get_public_ip()
+.. code-block:: python
+
+    from pif import get_public_ip
+    get_public_ip()
 
 Get public IP using preferred checker
 
->>> get_public_ip('whatismyip.com')
+.. code-block:: python
+
+    get_public_ip('whatismyip.com')
 
 List available checkers
 
->>> from pif.utils import list_checkers
->>> list_checkers()
+.. code-block:: python
+
+    from pif.utils import list_checkers
+    list_checkers()
 
 Registering a custom IP checker
 ----------------------------------
 `pif` ships with a number of pre-defined public IP checkers. But you may extend it by defining your own ones as
 follows.
 
->>> from pif.base import BaseIPChecker, registry
->>>
->>> class MyPublicIPChecker(BaseIPChecker):
->>>     uid = 'mypublicipchecker' # UID of the checker
->>>
->>>     def get_public_ip(self):
->>>         # Implement your logic
->>>
->>> registry.register(MyPublicIPChecker) # Register the checker
->>>
->>> get_public_ip('mypublicipchecker') # Get public IP using the preferred checker
+.. code-block:: python
+
+    from pif.base import BaseIPChecker, registry
+
+    class MyPublicIPChecker(BaseIPChecker):
+        uid = 'mypublicipchecker' # UID of the checker
+
+        def get_public_ip(self):
+            # Implement your logic
+
+    registry.register(MyPublicIPChecker) # Register the checker
+
+    get_public_ip('mypublicipchecker') # Get public IP using the preferred checker
 
 Command line usage
 ----------------------------------
 It's possible to get your public IP address from command line using the `pif.commands.get_public_ip`
 module.
 
->>> optional arguments:
->>>   -h, --help            show this help message and exit
->>>   -c PREFERRED_CHECKER, --checker PREFERRED_CHECKER
->>>                         `preferred_checker` value
->>>   -v VERBOSE, --verbose VERBOSE
->>>                         `verbose` value
+.. code-block:: none
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -c PREFERRED_CHECKER, --checker PREFERRED_CHECKER
+                            `preferred_checker` value
+      -v VERBOSE, --verbose VERBOSE
+                        `verbose` value
 
 :Example: (simple)
+
+.. code-block:: none
 
     $ get-public-ip
 
 :Example: (with preferred checked and verbose output)
+
+.. code-block:: none
 
     $ get-public-ip -c whatismyip.com -v 1
 
