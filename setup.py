@@ -6,7 +6,7 @@ try:
 except:
     readme = ''
 
-version = '0.7'
+version = '0.7.1'
 
 exec_dirs = [
     'src/pif/bin/',
@@ -46,5 +46,5 @@ setup(
     },
     scripts = ['src/pif/bin/get-public-ip',],
     license = 'GPL 2.0/LGPL 2.1',
-    install_requires = ['requests>=1.2.3',]
+    install_requires = ['requests>=1.2.3', 'argparse',]
 )
