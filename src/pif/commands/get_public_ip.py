@@ -2,7 +2,7 @@ from __future__ import print_function
 
 __title__ = 'pif.commands.get_public_ip'
 __author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('main',)
 
@@ -22,9 +22,15 @@ def main():
     Get public IP.
     """)
 
-    parser.add_argument("-c", "--checker", dest="preferred_checker", type=str, help="`preferred_checker` value", \
+    parser.add_argument("-c", "--checker",
+                        dest="preferred_checker",
+                        type=str,
+                        help="`preferred_checker` value",
                         metavar="PREFERRED_CHECKER")
-    parser.add_argument("-v", "--verbose", dest="verbose", type=str, help="`verbose` value", \
+    parser.add_argument("-v", "--verbose",
+                        dest="verbose",
+                        type=str,
+                        help="`verbose` value",
                         metavar="VERBOSE")
     args = parser.parse_args()
 

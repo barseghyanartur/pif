@@ -2,24 +2,27 @@ from __future__ import print_function
 
 __title__ = 'pif.tests'
 __author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('PifTest',)
+__all__ = ('log_info', 'PifTest',)
 
 import unittest
+import logging
 
 from pif.discover import autodiscover
 from pif.utils import get_public_ip, list_checkers
 from pif.base import registry, BasePublicIPChecker
 
-PRINT_INFO = True
+LOG_INFO = True
 TRACK_TIME = False
 
-def print_info(func):
+logger = logging.getLogger(__name__)
+
+def log_info(func):
     """
     Prints some useful info.
     """
-    if not PRINT_INFO:
+    if not LOG_INFO:
         return func
 
     def inner(self, *args, **kwargs):
@@ -32,14 +35,14 @@ def print_info(func):
         if TRACK_TIME:
             timer.stop() # Stop timer
 
-        print('\n{0}'.format(func.__name__))
-        print('============================')
-        print('""" {0} """'.format(func.__doc__.strip()))
-        print('----------------------------')
+        logger.info('\n{0}'.format(func.__name__))
+        logger.info('============================')
+        logger.info('""" {0} """'.format(func.__doc__.strip()))
+        logger.info('----------------------------')
         if result is not None:
-            print(result)
+            logger.info(result)
         if TRACK_TIME:
-            print('done in {0} seconds'.format(timer.duration))
+            logger.info('done in {0} seconds'.format(timer.duration))
 
         return result
     return inner
@@ -52,7 +55,7 @@ class PifTest(unittest.TestCase):
     def setUp(self):
         pass
 
-    @print_info
+    @log_info
     def test_01_autodiscover(self):
         """
         Test ``autodiscover``.
@@ -60,7 +63,7 @@ class PifTest(unittest.TestCase):
         autodiscover()
         self.assertTrue(len(registry._registry) > 0)
 
-    @print_info
+    @log_info
     def test_02_get_public_ip(self):
         """
         Test get IP.
@@ -69,7 +72,7 @@ class PifTest(unittest.TestCase):
         assert res
         return res
 
-    @print_info
+    @log_info
     def test_03_get_public_ip_using_preferred_checker_whatismyip(self):
         """
         Test get IP using preferred checker `whatismyip.com`.
@@ -78,7 +81,7 @@ class PifTest(unittest.TestCase):
         assert res
         return res
 
-    @print_info
+    @log_info
     def test_04_get_public_ip_using_preferred_checker_ident(self):
         """
         Test get IP using preferred checker `ident.me`.
@@ -87,7 +90,7 @@ class PifTest(unittest.TestCase):
         assert res
         return res
 
-    @print_info
+    @log_info
     def test_05_get_public_ip_using_preferred_checker_dyndns(self):
         """
         Test get IP using preferred checker `dyndns.com`.
@@ -96,7 +99,7 @@ class PifTest(unittest.TestCase):
         assert res
         return res
 
-    @print_info
+    @log_info
     def test_06_list_checkers(self):
         """
         Lists all registered checkers.
@@ -105,7 +108,7 @@ class PifTest(unittest.TestCase):
         self.assertTrue(len(res) > 0)
         return res
 
-    @print_info
+    @log_info
     def test_07_unregister_checker(self):
         """
         Test unregister checker `dyndns.com`.
@@ -114,7 +117,7 @@ class PifTest(unittest.TestCase):
         registry.unregister('dyndns.com')
         self.assertTrue('dyndns.com' not in registry._registry.keys())
 
-    @print_info
+    @log_info
     def test_08_register_custom_checker(self):
         """
         Test unregister checker `dyndns`.
@@ -127,6 +130,7 @@ class PifTest(unittest.TestCase):
 
         registry.register(MyPublicIPChecker)
         self.assertTrue('mypublicipchecker' in registry._registry.keys())
+
 
 if __name__ == '__main__':
     unittest.main()

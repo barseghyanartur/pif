@@ -1,8 +1,8 @@
 from __future__ import print_function
 
-__title__ = 'pif.__init__'
+__title__ = 'pif.discover'
 __author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('autodiscover',)
 
@@ -33,7 +33,9 @@ def autodiscover():
         if os.path.isdir(PROJECT_DIR(full_app_path)):
             try:
                 import_module(
-                    "pif.%s.%s.%s" % (IP_CHECKERS_DIR, app_path, IP_CHECKER_MODULE_NAME)
+                    "pif.%s.%s.%s" % (IP_CHECKERS_DIR,
+                                      app_path,
+                                      IP_CHECKER_MODULE_NAME)
                     )
             except ImportError as e:
                 if DEBUG:

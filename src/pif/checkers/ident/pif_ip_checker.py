@@ -2,7 +2,7 @@ from __future__ import print_function
 
 __title__ = 'pif.checkers.ident.pif_ip_checker'
 __author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('IdentmeIPChecker', 'V4IdentmeIPChecker', 'V6IdentmeIPChecker')
 

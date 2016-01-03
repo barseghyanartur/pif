@@ -2,9 +2,9 @@ from __future__ import print_function
 
 __title__ = 'pif.utils'
 __author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('ensure_autodiscover', 'list_checkers', 'get_public_ip')
+__all__ = ('ensure_autodiscover', 'list_checkers', 'get_public_ip',)
 
 from pif.base import registry
 from pif.discover import autodiscover
