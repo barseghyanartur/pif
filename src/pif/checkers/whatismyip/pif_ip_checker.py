@@ -26,7 +26,8 @@ class WhatismyipIPChecker(BasePublicIPChecker):
         """
         try:
             data = get('http://www.whatismyip.com/ip-address-lookup/').text
-            return re.compile(r'name="IP"(.*) value="(\d+\.\d+\.\d+\.\d+)"') \
+            import ipdb; ipdb.set_trace()
+            return re.compile(r'name="ip"(.*) value="(\d+\.\d+\.\d+\.\d+)"') \
                      .search(data) \
                      .group(2)
         except Exception as e:

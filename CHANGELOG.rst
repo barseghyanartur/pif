@@ -1,5 +1,11 @@
 Changelog
 =========
+0.7.3
+-----
+2016-01-23
+
+- Added additional checkers.
+
 0.7.2
 -----
 2016-01-03
