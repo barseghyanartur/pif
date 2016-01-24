@@ -22,6 +22,7 @@ def list_checkers():
 
     :return list:
     """
+    ensure_autodiscover()
     return registry._registry.keys()
 
 def get_public_ip(preferred_checker=None, verbose=False):
