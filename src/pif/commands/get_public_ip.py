@@ -42,7 +42,7 @@ def main():
     verbose = None
 
     try:
-        verbose = bool(int(args.preferred_checker))
+        verbose = bool(int(args.verbose))
         kwargs.update({'verbose': verbose})
     except:
         pass
