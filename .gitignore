@@ -4,6 +4,7 @@
 .hgtags
 .hg/
 .tox/
+.cache/
 
 build/
 builddocs/

@@ -4,6 +4,7 @@ syntax: regexp
 \.git
 \.gitignore~
 \.tox/
+\.cache/
 
 ^build/
 ^builddocs/
