@@ -1,26 +1,26 @@
 from __future__ import print_function
 
+import argparse
+
+from pif.utils import get_public_ip
+
 __title__ = 'pif.commands.get_public_ip'
 __author__ = 'Artur Barseghyan'
 __copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('main',)
 
-import argparse
-
-from pif.utils import get_public_ip
 
 def main():
-    """
-    Get public IP.
+    """Get public IP.
 
     :example:
 
     $ python src/pif/get_public_ip.py -pc user
     """
-    parser = argparse.ArgumentParser(description="""
-    Get public IP.
-    """)
+    parser = argparse.ArgumentParser(
+        description="""Get public IP."""
+    )
 
     parser.add_argument("-c", "--checker",
                         dest="preferred_checker",
@@ -44,7 +44,7 @@ def main():
     try:
         verbose = bool(int(args.verbose))
         kwargs.update({'verbose': verbose})
-    except:
+    except Exception as err:
         pass
 
     try:

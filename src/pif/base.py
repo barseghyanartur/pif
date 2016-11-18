@@ -1,39 +1,38 @@
+import socket
+
+from .conf import get_setting
+from .exceptions import InvalidRegistryItemType
+
 __title__ = 'pif.base'
 __author__ = 'Artur Barseghyan'
 __copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('BasePublicIPChecker', 'PublicIPCheckerRegistry', 'registry')
 
-import socket
-
-from pif.conf import get_setting
-from pif.exceptions import InvalidRegistryItemType
 
 class BasePublicIPChecker(object):
-    """
-    Base public IP checker.
-    """
+    """Base public IP checker."""
+
     uid = None
     verbose = False
 
     def __init__(self, verbose=False):
-        """
+        """Constructor.
+
         :param bool verbose:
         """
         assert self.uid
         self.verbose = verbose
 
     def get_local_ip(self):
-        """
-        Gets local IP
+        """Get local IP.
 
         :return str:
         """
         return socket.gethostbyname(socket.gethostname())
 
     def get_public_ip(self):
-        """
-        Get public IP.
+        """Get public IP.
 
         :return str:
         """
@@ -41,23 +40,26 @@ class BasePublicIPChecker(object):
 
 
 class PublicIPCheckerRegistry(object):
-    """
-    Registry of public IP checkers.
-    """
+    """Registry of public IP checkers."""
+
     def __init__(self):
         self._registry = {}
         self._forced = []
 
     def register(self, cls):
-        """
-        Registers the IP checker in the registry.
+        """Register the IP checker in the registry.
 
-        :param pif.base.BaseIPChecker cls: Subclass of ``pif.base.BaseIPChecker``.
-        :param bool force: If set to True, item stays forced. It's not possible to unregister a forced item.
+        :param pif.base.BaseIPChecker cls: Subclass of
+            ``pif.base.BaseIPChecker``.
+        :param bool force: If set to True, item stays forced. It's not
+            possible to un-register a forced item.
         :return bool: True if registered and False otherwise.
         """
         if not issubclass(cls, BasePublicIPChecker):
-            raise InvalidRegistryItemType("Invalid item type `%s` for registry `%s`" % (cls, self.__class__))
+            raise InvalidRegistryItemType(
+                "Invalid item type `%s` for registry "
+                "`%s`" % (cls, self.__class__)
+            )
 
         if not cls.uid in self._registry:
             self._registry[cls.uid] = cls
@@ -66,16 +68,19 @@ class PublicIPCheckerRegistry(object):
             return False
 
     def unregister(self, checker):
-        """
-        Unregisters an item from registry.
+        """Un-registers an item from registry.
 
-        :param mixed checker: May be a subclass of ``pif.base.BasePublicIPChecker`` or string, representing
-            the checker name.
+        :param mixed checker: May be a subclass of
+            ``pif.base.BasePublicIPChecker`` or string, representing the
+            checker name.
         :return bool: True if unregistered and False otherwise.
         """
         if not isinstance(checker, str):
-            if not issubclass(cls, BasePublicIPChecker):
-                raise InvalidRegistryItemType("Invalid item type `%s` for registry `%s`" % (cls, self.__class__))
+            if not issubclass(checker, BasePublicIPChecker):
+                raise InvalidRegistryItemType(
+                    "Invalid item type `%s` for registry "
+                    "`%s`" % (checker, self.__class__)
+                )
 
             checker = cls.uid
 

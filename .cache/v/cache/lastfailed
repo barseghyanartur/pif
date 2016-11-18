@@ -1,0 +1,3 @@
+{
+  "src/pif/tests.py::PifTest::test_03_get_public_ip_using_preferred_checker_whatismyip": true
+}
