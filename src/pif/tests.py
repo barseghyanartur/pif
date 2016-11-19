@@ -11,7 +11,10 @@ __title__ = 'pif.tests'
 __author__ = 'Artur Barseghyan'
 __copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('log_info', 'PifTest',)
+__all__ = (
+    'log_info',
+    'PifTest',
+)
 
 LOG_INFO = True
 TRACK_TIME = False

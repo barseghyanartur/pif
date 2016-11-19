@@ -9,7 +9,11 @@ __title__ = 'pif.utils'
 __author__ = 'Artur Barseghyan'
 __copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('ensure_autodiscover', 'list_checkers', 'get_public_ip',)
+__all__ = (
+    'ensure_autodiscover',
+    'list_checkers',
+    'get_public_ip',
+)
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +36,7 @@ def list_checkers():
 def get_public_ip(preferred_checker=None, verbose=False):
     """Get IP using one of the services.
 
-    :param str preffered checker: Checker UID. If given, the preferred
+    :param str preferred checker: Checker UID. If given, the preferred
         checker is used.
     :param bool verbose: If set to True, debug info is printed.
     :return str:

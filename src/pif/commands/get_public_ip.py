@@ -50,8 +50,8 @@ def main():
     try:
         public_ip = get_public_ip(**kwargs)
         print(public_ip)
-    except Exception as e:
-        print(e)
+    except Exception as err:
+        print(err)
 
 
 if __name__ == "__main__":

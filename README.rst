@@ -96,6 +96,26 @@ It's possible to get your public IP address from command line using the
 
     get-public-ip -c whatismyip.com -v 1
 
+Testing
+=======
+Simply type:
+
+.. code-block:: sh
+
+    ./runtests.py
+
+or use tox:
+
+.. code-block:: sh
+
+    tox
+
+or use tox to check specific env:
+
+.. code-block:: sh
+
+    tox -e py35
+
 License
 =======
 GPL 2.0/LGPL 2.1
