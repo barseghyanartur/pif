@@ -24,7 +24,7 @@ class IpifyIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('https://api.ipify.org').text
+            data = get('http://api.ipify.org', verify=False).text
             return data
         except Exception as err:
             if self.verbose:

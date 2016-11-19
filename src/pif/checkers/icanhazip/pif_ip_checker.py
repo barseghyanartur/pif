@@ -24,7 +24,7 @@ class IcanhazipIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://icanhazip.com/').text.rstrip()
+            data = get('http://icanhazip.com/', verify=False).text.rstrip()
             return data
         except Exception as err:
             if self.verbose:

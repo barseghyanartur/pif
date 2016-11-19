@@ -28,7 +28,7 @@ class IdentmeIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://ident.me').text
+            data = get('http://ident.me', verify=False).text
             return data
         except Exception as err:
             if self.verbose:
@@ -53,7 +53,7 @@ class V4IdentmeIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://v4.ident.me').text
+            data = get('http://v4.ident.me', verify=False).text
             return data
         except Exception as err:
             if self.verbose:
@@ -78,7 +78,7 @@ class V6IdentmeIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://v6.ident.me').text
+            data = get('http://v6.ident.me', verify=False).text
             return data
         except Exception as err:
             if self.verbose:

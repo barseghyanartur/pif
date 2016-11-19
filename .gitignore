@@ -5,6 +5,7 @@
 .hg/
 .tox/
 .cache/
+.coverage
 
 build/
 builddocs/

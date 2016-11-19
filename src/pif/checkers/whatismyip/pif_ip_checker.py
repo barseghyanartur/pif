@@ -25,8 +25,11 @@ class WhatismyipIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://www.whatismyip.com/ip-address-lookup/').text
-            return re.compile(r'name="ip"(.*) value="(\d+\.\d+\.\d+\.\d+)"') \
+            data = get(
+                'http://www.whatismyip.com/ip-address-lookup/',
+                verify=False
+            ).text
+            return re.compile(r'name="ip"(.*) value="(.+)"') \
                      .search(data) \
                      .group(2)
         except Exception as err:
@@ -34,4 +37,4 @@ class WhatismyipIPChecker(BasePublicIPChecker):
                 logger.error(err)
 
 
-registry.register(WhatismyipIPChecker)
+# registry.register(WhatismyipIPChecker)

@@ -1,5 +1,12 @@
 Changelog
 =========
+0.7.4
+-----
+2016-11-19
+
+- Fixed broken checkers.
+- Added additional checkers.
+
 0.7.3
 -----
 2016-01-23

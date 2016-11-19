@@ -27,12 +27,12 @@ def log_info(func):
     def inner(self, *args, **kwargs):
         if TRACK_TIME:
             import simple_timer
-            timer = simple_timer.Timer() # Start timer
+            timer = simple_timer.Timer()  # Start timer
 
         result = func(self, *args, **kwargs)
 
         if TRACK_TIME:
-            timer.stop() # Stop timer
+            timer.stop()  # Stop timer
 
         logger.info('\n{0}'.format(func.__name__))
         logger.info('============================')
@@ -64,46 +64,62 @@ class PifTest(unittest.TestCase):
     def test_02_get_public_ip(self):
         """Test get IP."""
         res = get_public_ip(verbose=True)
-        assert res
+        self.assertIsNotNone(res)
         return res
 
     @log_info
-    def test_03_get_public_ip_using_preferred_checker_whatismyip(self):
-        """Test get IP using preferred checker `whatismyip.com`."""
-        res = get_public_ip('whatismyip.com', verbose=True)
-        assert res
+    def _test_get_public_ip_using_preferred_checker(self, checker):
+        """Test get_public_ip using preferred checker."""
+        res = get_public_ip(checker, verbose=True)
         return res
 
     @log_info
-    def test_04_get_public_ip_using_preferred_checker_ident(self):
+    def test_03_get_public_ip_using_preferred_checker(self):
         """Test get IP using preferred checker `ident.me`."""
-        res = get_public_ip('ident.me', verbose=True)
-        assert res
+        checkers = list_checkers()
+        res = {}
+        failed = []
+        for checker in checkers:
+            _res = self._test_get_public_ip_using_preferred_checker(checker)
+            if _res is None:
+                failed.append(checker)
+            res.update({checker: _res})
+        self.assertTrue(
+            len(failed) == 0,
+            "Failed for {}".format(','.join(failed))
+        )
         return res
 
-    @log_info
-    def test_05_get_public_ip_using_preferred_checker_dyndns(self):
-        """Test get IP using preferred checker `dyndns.com`."""
-        res = get_public_ip('dyndns.com', verbose=True)
-        assert res
-        return res
+    # @log_info
+    # def test_04_get_public_ip_using_preferred_checker_ident(self):
+    #     """Test get IP using preferred checker `ident.me`."""
+    #     res = get_public_ip('ident.me', verbose=True)
+    #     self.assertIsNotNone(res)
+    #     return res
+    #
+    # @log_info
+    # def test_05_get_public_ip_using_preferred_checker_dyndns(self):
+    #     """Test get IP using preferred checker `dyndns.com`."""
+    #     res = get_public_ip('dyndns.com', verbose=True)
+    #     self.assertIsNotNone(res)
+    #     return res
 
     @log_info
-    def test_06_list_checkers(self):
+    def test_04_list_checkers(self):
         """Lists all registered checkers."""
         res = list_checkers()
         self.assertTrue(len(res) > 0)
         return res
 
     @log_info
-    def test_07_unregister_checker(self):
+    def test_05_unregister_checker(self):
         """Test un-register checker `dyndns.com`."""
         self.assertTrue('dyndns.com' in registry._registry.keys())
         registry.unregister('dyndns.com')
         self.assertTrue('dyndns.com' not in registry._registry.keys())
 
     @log_info
-    def test_08_register_custom_checker(self):
+    def test_06_register_custom_checker(self):
         """Test un-register checker `dyndns`."""
         class MyPublicIPChecker(BasePublicIPChecker):
             uid = 'mypublicipchecker'

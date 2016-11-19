@@ -36,7 +36,8 @@ class BasePublicIPChecker(object):
 
         :return str:
         """
-        raise NotImplemented("You should override ``get_ip`` method in your IP checker class.")
+        raise NotImplemented("You should override ``get_ip`` method in your "
+                             "IP checker class.")
 
 
 class PublicIPCheckerRegistry(object):
@@ -61,7 +62,7 @@ class PublicIPCheckerRegistry(object):
                 "`%s`" % (cls, self.__class__)
             )
 
-        if not cls.uid in self._registry:
+        if cls.uid not in self._registry:
             self._registry[cls.uid] = cls
             return True
         else:
@@ -75,14 +76,16 @@ class PublicIPCheckerRegistry(object):
             checker name.
         :return bool: True if unregistered and False otherwise.
         """
+        # If not string, then we check it it's of a right class.
         if not isinstance(checker, str):
             if not issubclass(checker, BasePublicIPChecker):
                 raise InvalidRegistryItemType(
                     "Invalid item type `%s` for registry "
                     "`%s`" % (checker, self.__class__)
                 )
+            # So, it's the right class.
 
-            checker = cls.uid
+            checker = checker.uid
 
         if checker in self._registry:
             self._registry.pop(checker)

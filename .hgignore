@@ -1,10 +1,11 @@
 syntax: regexp
 \.pyc$
 \.hgignore~
-\.git
+\.git$
 \.gitignore~
 \.tox/
 \.cache/
+\.coverage$
 
 ^build/
 ^builddocs/

@@ -24,7 +24,7 @@ class IpechoIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://ipecho.net/plain').text
+            data = get('http://ipecho.net/plain', verify=False).text
             return data
         except Exception as err:
             if self.verbose:

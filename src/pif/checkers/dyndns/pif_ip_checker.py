@@ -25,7 +25,7 @@ class DyndnsIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://checkip.dyndns.com/').text
+            data = get('http://checkip.dyndns.com/', verify=False).text
             return re.compile(r'Address: (\d+\.\d+\.\d+\.\d+)') \
                      .search(data) \
                      .group(1)

@@ -27,7 +27,7 @@ class HttpbinIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = loads(get('http://httpbin.org/ip').text)
+            data = loads(get('http://httpbin.org/ip', verify=False).text)
             return data['origin']
         except Exception as err:
             if self.verbose:

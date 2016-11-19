@@ -24,7 +24,7 @@ class Ip42IPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://ip.42.pl/raw').text
+            data = get('http://ip.42.pl/raw', verify=False).text
             return data
         except Exception as err:
             if self.verbose:

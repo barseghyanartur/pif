@@ -24,7 +24,7 @@ class TnxIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://tnx.nl/ip').text.rstrip()
+            data = get('http://tnx.nl/ip', verify=False).text.rstrip()
             return data
         except Exception as err:
             if self.verbose:
