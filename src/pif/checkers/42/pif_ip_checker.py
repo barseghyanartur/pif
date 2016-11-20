@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class Ip42IPChecker(BasePublicIPChecker):
-    """Checks IPs using ipecho.net."""
+    """Checks IPs using ip.42.pl"""
 
     uid = 'ip.42.pl'
 
