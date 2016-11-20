@@ -1,5 +1,3 @@
-import logging
-
 from requests import get
 
 from pif.base import BasePublicIPChecker, registry
@@ -9,15 +7,13 @@ __author__ = 'Artur Barseghyan'
 __copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'IdentmeIPChecker',
-    'V4IdentmeIPChecker',
-    'V6IdentmeIPChecker'
+    'IdentMeIPChecker',
+    'V4IdentMeIPChecker',
+    'V6IdentMeIPChecker'
 )
 
-logger = logging.getLogger(__name__)
 
-
-class IdentmeIPChecker(BasePublicIPChecker):
+class IdentMeIPChecker(BasePublicIPChecker):
     """Check IPs using ident.me."""
 
     uid = 'ident.me'
@@ -28,21 +24,20 @@ class IdentmeIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://ident.me', verify=False).text
-            return data
+            return get('http://ident.me', verify=False).text
         except Exception as err:
             if self.verbose:
-                logger.error(err)
+                self.logger.error(err)
 
 
-registry.register(IdentmeIPChecker)
+registry.register(IdentMeIPChecker)
 
 # ********************************************************
 # ********************************************************
 # ********************************************************
 
 
-class V4IdentmeIPChecker(BasePublicIPChecker):
+class V4IdentMeIPChecker(BasePublicIPChecker):
     """Checks IPs using v4.ident.me."""
 
     uid = 'v4.ident.me'
@@ -53,21 +48,20 @@ class V4IdentmeIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://v4.ident.me', verify=False).text
-            return data
+            return get('http://v4.ident.me', verify=False).text
         except Exception as err:
             if self.verbose:
-                logger.error(err)
+                self.logger.error(err)
 
 
-registry.register(V4IdentmeIPChecker)
+registry.register(V4IdentMeIPChecker)
 
 # ********************************************************
 # ********************************************************
 # ********************************************************
 
 
-class V6IdentmeIPChecker(BasePublicIPChecker):
+class V6IdentMeIPChecker(BasePublicIPChecker):
     """Check IPs using v6.ident.me."""
 
     uid = 'v6.ident.me'
@@ -78,11 +72,10 @@ class V6IdentmeIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://v6.ident.me', verify=False).text
-            return data
+            return get('http://v6.ident.me', verify=False).text
         except Exception as err:
             if self.verbose:
-                logger.error(err)
+                self.logger.error(err)
 
 
-registry.register(V6IdentmeIPChecker)
+registry.register(V6IdentMeIPChecker)

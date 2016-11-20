@@ -11,6 +11,7 @@ __all__ = (
 
 
 def project_dir(base):
+    """Get absolute project directory path."""
     return os.path.abspath(
         os.path.join(
             os.path.dirname(__file__),

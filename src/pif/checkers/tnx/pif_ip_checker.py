@@ -1,19 +1,15 @@
-import logging
-
 from requests import get
 
 from pif.base import BasePublicIPChecker, registry
 
-__title__ = 'pif.checkers.tnx.nl.pif_ip_checker'
+__title__ = 'pif.checkers.tnx.pif_ip_checker'
 __author__ = 'Bruno Santeramo'
 __copyright__ = 'Copyright (c) 2016 Bruno Santeramo'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('TnxIPChecker',)
-
-logger = logging.getLogger(__name__)
+__all__ = ('TnxNlIPChecker',)
 
 
-class TnxIPChecker(BasePublicIPChecker):
+class TnxNlIPChecker(BasePublicIPChecker):
     """Check IPs using tnx.nl."""
 
     uid = 'tnx.nl'
@@ -28,7 +24,7 @@ class TnxIPChecker(BasePublicIPChecker):
             return data
         except Exception as err:
             if self.verbose:
-                logger.error(err)
+                self.logger.error(err)
 
 
-registry.register(TnxIPChecker)
+registry.register(TnxNlIPChecker)

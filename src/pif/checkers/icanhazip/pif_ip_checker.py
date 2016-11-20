@@ -1,19 +1,15 @@
-import logging
-
 from requests import get
 
 from pif.base import BasePublicIPChecker, registry
 
-__title__ = 'pif.checkers.icanhazip.com.pif_ip_checker'
+__title__ = 'pif.checkers.icanhazip.pif_ip_checker'
 __author__ = 'Bruno Santeramo'
 __copyright__ = 'Copyright (c) 2016 Bruno Santeramo'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('IcanhazipIPChecker',)
-
-logger = logging.getLogger(__name__)
+__all__ = ('IcanhazipComIPChecker',)
 
 
-class IcanhazipIPChecker(BasePublicIPChecker):
+class IcanhazipComIPChecker(BasePublicIPChecker):
     """Check IPs using icanhazip.com."""
 
     uid = 'icanhazip.com'
@@ -24,11 +20,10 @@ class IcanhazipIPChecker(BasePublicIPChecker):
         :return str:
         """
         try:
-            data = get('http://icanhazip.com/', verify=False).text.rstrip()
-            return data
+            return get('http://icanhazip.com/', verify=False).text.rstrip()
         except Exception as err:
             if self.verbose:
-                logger.debug(err)
+                self.logger.error(err)
 
 
-registry.register(IcanhazipIPChecker)
+registry.register(IcanhazipComIPChecker)

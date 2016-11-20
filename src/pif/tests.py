@@ -37,14 +37,14 @@ def log_info(func):
         if TRACK_TIME:
             timer.stop()  # Stop timer
 
-        logger.info('\n{0}'.format(func.__name__))
+        logger.info('\n{}'.format(func.__name__))
         logger.info('============================')
-        logger.info('""" {0} """'.format(func.__doc__.strip()))
+        logger.info('""" {} """'.format(func.__doc__.strip()))
         logger.info('----------------------------')
         if result is not None:
             logger.info(result)
         if TRACK_TIME:
-            logger.info('done in {0} seconds'.format(timer.duration))
+            logger.info('done in {} seconds'.format(timer.duration))
 
         return result
     return inner
@@ -61,7 +61,7 @@ class PifTest(unittest.TestCase):
     def test_01_autodiscover(self):
         """Test ``autodiscover``."""
         autodiscover()
-        self.assertTrue(len(registry._registry) > 0)
+        self.assertTrue(len(registry.registry) > 0)
 
     @log_info
     def test_02_get_public_ip(self):
@@ -93,20 +93,6 @@ class PifTest(unittest.TestCase):
         )
         return res
 
-    # @log_info
-    # def test_04_get_public_ip_using_preferred_checker_ident(self):
-    #     """Test get IP using preferred checker `ident.me`."""
-    #     res = get_public_ip('ident.me', verbose=True)
-    #     self.assertIsNotNone(res)
-    #     return res
-    #
-    # @log_info
-    # def test_05_get_public_ip_using_preferred_checker_dyndns(self):
-    #     """Test get IP using preferred checker `dyndns.com`."""
-    #     res = get_public_ip('dyndns.com', verbose=True)
-    #     self.assertIsNotNone(res)
-    #     return res
-
     @log_info
     def test_04_list_checkers(self):
         """Lists all registered checkers."""
@@ -117,21 +103,24 @@ class PifTest(unittest.TestCase):
     @log_info
     def test_05_unregister_checker(self):
         """Test un-register checker `dyndns.com`."""
-        self.assertTrue('dyndns.com' in registry._registry.keys())
+        self.assertTrue('dyndns.com' in registry.registry.keys())
         registry.unregister('dyndns.com')
-        self.assertTrue('dyndns.com' not in registry._registry.keys())
+        self.assertTrue('dyndns.com' not in registry.registry.keys())
 
     @log_info
     def test_06_register_custom_checker(self):
         """Test un-register checker `dyndns`."""
         class MyPublicIPChecker(BasePublicIPChecker):
+            """MyPublicIPChecker."""
+
             uid = 'mypublicipchecker'
 
             def get_public_ip(self):
+                """Get public IP."""
                 return '8.8.8.8'
 
         registry.register(MyPublicIPChecker)
-        self.assertTrue('mypublicipchecker' in registry._registry.keys())
+        self.assertTrue('mypublicipchecker' in registry.registry.keys())
 
 
 if __name__ == '__main__':

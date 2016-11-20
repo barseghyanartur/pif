@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import logging
 
 from pif.base import registry
@@ -20,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 def ensure_autodiscover():
     """Ensure the IP checkers are auto-discovered."""
-    if not registry._registry:
+    if not registry.registry:
         autodiscover()
 
 
@@ -30,13 +28,13 @@ def list_checkers():
     :return list:
     """
     ensure_autodiscover()
-    return registry._registry.keys()
+    return registry.registry.keys()
 
 
 def get_public_ip(preferred_checker=None, verbose=False):
     """Get IP using one of the services.
 
-    :param str preferred checker: Checker UID. If given, the preferred
+    :param str preferred_checker: Checker UID. If given, the preferred
         checker is used.
     :param bool verbose: If set to True, debug info is printed.
     :return str:
@@ -60,17 +58,19 @@ def get_public_ip(preferred_checker=None, verbose=False):
 
     # Using all checkers.
 
-    for ip_checker_name, ip_checker_cls in registry._registry.items():
+    for ip_checker_name, ip_checker_cls in registry.registry.items():
         ip_checker = ip_checker_cls(verbose=verbose)
         try:
             ip = ip_checker.get_public_ip()
             if ip:
                 if verbose:
-                    logger.info('provider: ', ip_checker_cls)
+                    logger.info(
+                        'provider: {}'.format(ip_checker_cls.__name__)
+                    )
                 return ip
 
-        except Exception as e:
+        except Exception as err:
             if verbose:
-                print(e)
+                logger.error(err)
 
     return False

@@ -40,7 +40,7 @@ Get public IP using preferred checker
 
 .. code-block:: python
 
-    get_public_ip('whatismyip.com')
+    get_public_ip('v4.ident.me')
 
 List available checkers
 
@@ -94,7 +94,7 @@ It's possible to get your public IP address from command line using the
 
 .. code-block:: sh
 
-    get-public-ip -c whatismyip.com -v 1
+    get-public-ip -c v4.ident.me -v 1
 
 Testing
 =======

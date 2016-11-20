@@ -1,20 +1,17 @@
-import logging
 import re
 
 from requests import get
 
-from pif.base import BasePublicIPChecker, registry
+from pif.base import BasePublicIPChecker  # , registry
 
 __title__ = 'pif.checkers.whatismyip.pif_ip_checker'
 __author__ = 'Artur Barseghyan'
 __copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('WhatismyipIPChecker',)
-
-logger = logging.getLogger(__name__)
+__all__ = ('WhatismyipComIPChecker',)
 
 
-class WhatismyipIPChecker(BasePublicIPChecker):
+class WhatismyipComIPChecker(BasePublicIPChecker):
     """Checks IPs using whatismyip.com."""
 
     uid = 'whatismyip.com'
@@ -34,7 +31,7 @@ class WhatismyipIPChecker(BasePublicIPChecker):
                      .group(2)
         except Exception as err:
             if self.verbose:
-                logger.error(err)
+                self.logger.error(err)
 
 
-# registry.register(WhatismyipIPChecker)
+# registry.register(WhatismyipComIPChecker)

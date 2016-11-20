@@ -1,6 +1,7 @@
+import logging
 import socket
 
-from .conf import get_setting
+# from .conf import get_setting
 from .exceptions import InvalidRegistryItemType
 
 __title__ = 'pif.base'
@@ -27,6 +28,7 @@ class BasePublicIPChecker(object):
         """
         assert self.uid
         self.verbose = verbose
+        self.logger = logging.getLogger(__name__)
 
     def get_local_ip(self):
         """Get local IP.
@@ -50,6 +52,11 @@ class PublicIPCheckerRegistry(object):
     def __init__(self):
         self._registry = {}
         self._forced = []
+
+    @property
+    def registry(self):
+        """Registry."""
+        return self._registry
 
     def register(self, cls):
         """Register the IP checker in the registry.
@@ -98,6 +105,11 @@ class PublicIPCheckerRegistry(object):
             return False
 
     def get(self, uid):
+        """Get item from registry.
+
+        :param str uid:
+        :return BasePublicIPChecker: Subclass of `BasePublicIPChecker`.
+        """
         return self._registry.get(uid, None)
 
 
