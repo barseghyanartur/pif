@@ -6,7 +6,7 @@ try:
 except:
     readme = ''
 
-version = '0.8'
+version = '0.8.1'
 
 exec_dirs = [
     'src/pif/bin/',

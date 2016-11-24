@@ -52,8 +52,9 @@ def get_public_ip(preferred_checker=None, verbose=False):
         ip = ip_checker.get_public_ip()
 
         if verbose:
-            # logger.info('provider: ', ip_checker_cls)
-            logger.info('provider: ', preferred_checker)
+            logger.info(
+                'provider: {}'.format(ip_checker_cls.__name__)
+            )
         return ip
 
     # Using all checkers.
