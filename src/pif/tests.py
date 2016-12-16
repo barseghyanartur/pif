@@ -3,13 +3,13 @@ from __future__ import print_function
 import logging
 import unittest
 
-from pif.discover import autodiscover
-from pif.utils import get_public_ip, list_checkers
-from pif.base import registry, BasePublicIPChecker
+from .base import registry, BasePublicIPChecker
+from .discover import autodiscover
+from .utils import get_public_ip, list_checkers, ensure_autodiscover
 
 __title__ = 'pif.tests'
 __author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
+__copyright__ = '2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'log_info',
@@ -17,7 +17,6 @@ __all__ = (
 )
 
 LOG_INFO = True
-TRACK_TIME = False
 
 logger = logging.getLogger(__name__)
 
@@ -28,14 +27,7 @@ def log_info(func):
         return func
 
     def inner(self, *args, **kwargs):
-        if TRACK_TIME:
-            import simple_timer
-            timer = simple_timer.Timer()  # Start timer
-
         result = func(self, *args, **kwargs)
-
-        if TRACK_TIME:
-            timer.stop()  # Stop timer
 
         logger.info('\n{}'.format(func.__name__))
         logger.info('============================')
@@ -43,8 +35,6 @@ def log_info(func):
         logger.info('----------------------------')
         if result is not None:
             logger.info(result)
-        if TRACK_TIME:
-            logger.info('done in {} seconds'.format(timer.duration))
 
         return result
     return inner
@@ -121,6 +111,16 @@ class PifTest(unittest.TestCase):
 
         registry.register(MyPublicIPChecker)
         self.assertTrue('mypublicipchecker' in registry.registry.keys())
+
+    @log_info
+    def test_07_get_local_ip(self):
+        """Test get local IP."""
+        ensure_autodiscover()
+        ip_checker_cls = registry.registry.values()[0]
+
+        ip_checker = ip_checker_cls(verbose=False)
+        local_ip = ip_checker.get_local_ip()
+        self.assertIsNotNone(local_ip)
 
 
 if __name__ == '__main__':

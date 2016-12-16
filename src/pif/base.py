@@ -42,8 +42,9 @@ class BasePublicIPChecker(object):
 
         :return str:
         """
-        raise NotImplemented("You should override ``get_ip`` method in your "
-                             "IP checker class.")
+        raise NotImplementedError(
+            "You should override ``get_ip`` method in your IP checker class."
+        )
 
 
 class PublicIPCheckerRegistry(object):

@@ -6,6 +6,8 @@ syntax: regexp
 \.tox/
 \.cache/
 \.coverage$
+^htmlcov/
+\.py,cover
 
 ^build/
 ^builddocs/

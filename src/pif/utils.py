@@ -5,7 +5,7 @@ from pif.discover import autodiscover
 
 __title__ = 'pif.utils'
 __author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
+__copyright__ = '2013-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'ensure_autodiscover',
@@ -49,26 +49,26 @@ def get_public_ip(preferred_checker=None, verbose=False):
             return False
 
         ip_checker = ip_checker_cls(verbose=verbose)
-        ip = ip_checker.get_public_ip()
+        public_ip = ip_checker.get_public_ip()
 
         if verbose:
             logger.info(
                 'provider: {}'.format(ip_checker_cls.__name__)
             )
-        return ip
+        return public_ip
 
     # Using all checkers.
 
     for ip_checker_name, ip_checker_cls in registry.registry.items():
         ip_checker = ip_checker_cls(verbose=verbose)
         try:
-            ip = ip_checker.get_public_ip()
-            if ip:
+            public_ip = ip_checker.get_public_ip()
+            if public_ip:
                 if verbose:
                     logger.info(
                         'provider: {}'.format(ip_checker_cls.__name__)
                     )
-                return ip
+                return public_ip
 
         except Exception as err:
             if verbose:
