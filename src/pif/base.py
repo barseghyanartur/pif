@@ -1,7 +1,6 @@
 import logging
 import socket
 
-# from .conf import get_setting
 from .exceptions import InvalidRegistryItemType
 
 __title__ = 'pif.base'

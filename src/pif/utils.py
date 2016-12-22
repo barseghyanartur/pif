@@ -13,7 +13,7 @@ __all__ = (
     'get_public_ip',
 )
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 def ensure_autodiscover():
@@ -52,9 +52,7 @@ def get_public_ip(preferred_checker=None, verbose=False):
         public_ip = ip_checker.get_public_ip()
 
         if verbose:
-            logger.info(
-                'provider: {}'.format(ip_checker_cls.__name__)
-            )
+            LOGGER.info('provider: %s', ip_checker_cls.__name__)
         return public_ip
 
     # Using all checkers.
@@ -65,13 +63,11 @@ def get_public_ip(preferred_checker=None, verbose=False):
             public_ip = ip_checker.get_public_ip()
             if public_ip:
                 if verbose:
-                    logger.info(
-                        'provider: {}'.format(ip_checker_cls.__name__)
-                    )
+                    LOGGER.info('provider: %s', ip_checker_cls.__name__)
                 return public_ip
 
         except Exception as err:
             if verbose:
-                logger.error(err)
+                LOGGER.error(err)
 
     return False

@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.8.2
+-----
+2016-12-22
+
+- Minor code clean up and pep8 fixes.
+- Added testing against PyPy.
+
 0.8.1
 -----
 2016-11-24

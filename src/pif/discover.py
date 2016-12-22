@@ -3,8 +3,8 @@ from __future__ import print_function
 import os
 import logging
 
-from .helpers import PROJECT_DIR
 from .conf import get_setting
+from .helpers import PROJECT_DIR
 
 try:
     from importlib import import_module
@@ -18,7 +18,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('autodiscover',)
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 def autodiscover():
@@ -39,9 +39,9 @@ def autodiscover():
                 )
             except ImportError as err:
                 if debug:
-                    logger.debug(str(err))
+                    LOGGER.debug(str(err))
             except Exception as err:
                 if debug:
-                    logger.debug(str(err))
+                    LOGGER.debug(str(err))
         else:
             pass

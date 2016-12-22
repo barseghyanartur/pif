@@ -3,9 +3,9 @@ from __future__ import print_function
 import logging
 import unittest
 
-from .base import registry, BasePublicIPChecker
-from .discover import autodiscover
+from .base import BasePublicIPChecker, registry
 from .utils import get_public_ip, list_checkers, ensure_autodiscover
+from .discover import autodiscover
 
 __title__ = 'pif.tests'
 __author__ = 'Artur Barseghyan'
@@ -18,7 +18,7 @@ __all__ = (
 
 LOG_INFO = True
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 def log_info(func):
@@ -29,12 +29,12 @@ def log_info(func):
     def inner(self, *args, **kwargs):
         result = func(self, *args, **kwargs)
 
-        logger.info('\n{}'.format(func.__name__))
-        logger.info('============================')
-        logger.info('""" {} """'.format(func.__doc__.strip()))
-        logger.info('----------------------------')
+        LOGGER.info('\n%s', func.__name__)
+        LOGGER.info('============================')
+        LOGGER.info('""" %s """', func.__doc__.strip())
+        LOGGER.info('----------------------------')
         if result is not None:
-            logger.info(result)
+            LOGGER.info(result)
 
         return result
     return inner
@@ -116,7 +116,7 @@ class PifTest(unittest.TestCase):
     def test_07_get_local_ip(self):
         """Test get local IP."""
         ensure_autodiscover()
-        ip_checker_cls = registry.registry.values()[0]
+        ip_checker_cls = list(registry.registry.values())[0]
 
         ip_checker = ip_checker_cls(verbose=False)
         local_ip = ip_checker.get_local_ip()

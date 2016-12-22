@@ -9,7 +9,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'IdentMeIPChecker',
     'V4IdentMeIPChecker',
-    'V6IdentMeIPChecker'
+    # 'V6IdentMeIPChecker'
 )
 
 
@@ -32,10 +32,6 @@ class IdentMeIPChecker(BasePublicIPChecker):
 
 registry.register(IdentMeIPChecker)
 
-# ********************************************************
-# ********************************************************
-# ********************************************************
-
 
 class V4IdentMeIPChecker(BasePublicIPChecker):
     """Checks IPs using v4.ident.me."""
@@ -56,26 +52,22 @@ class V4IdentMeIPChecker(BasePublicIPChecker):
 
 registry.register(V4IdentMeIPChecker)
 
-# ********************************************************
-# ********************************************************
-# ********************************************************
+
+# class V6IdentMeIPChecker(BasePublicIPChecker):
+#     """Check IPs using v6.ident.me."""
+
+#     uid = 'v6.ident.me'
+
+#     def get_public_ip(self):
+#         """Get public IP.
+
+#         :return str:
+#         """
+#         try:
+#             return get('http://v6.ident.me', verify=False).text
+#         except Exception as err:
+#             if self.verbose:
+#                 self.logger.error(err)
 
 
-class V6IdentMeIPChecker(BasePublicIPChecker):
-    """Check IPs using v6.ident.me."""
-
-    uid = 'v6.ident.me'
-
-    def get_public_ip(self):
-        """Get public IP.
-
-        :return str:
-        """
-        try:
-            return get('http://v6.ident.me', verify=False).text
-        except Exception as err:
-            if self.verbose:
-                self.logger.error(err)
-
-
-registry.register(V6IdentMeIPChecker)
+# registry.register(V6IdentMeIPChecker)

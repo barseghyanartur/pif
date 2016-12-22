@@ -1,4 +1,5 @@
 import os
+
 from setuptools import setup, find_packages
 
 try:
@@ -6,7 +7,7 @@ try:
 except:
     readme = ''
 
-version = '0.8.1'
+version = '0.8.2'
 
 exec_dirs = [
     'src/pif/bin/',
@@ -27,6 +28,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: Implementation :: PyPy",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",

@@ -3,46 +3,50 @@ pif
 ===
 Discovers your public IP address using pre-defined checkers (external services).
 
+Prerequisites
+=============
+- Python 2.7, 3.4, 3.5, PyPy
+
 Installation
 ============
-Install with latest stable version from PyPI
+Install with latest stable version from PyPI:
 
 .. code-block:: sh
 
     pip install pif
 
-or install the latest stable version from source
+or install the latest stable version from source:
 
 .. code-block:: sh
 
-    pip install -e hg+https://bitbucket.org/barseghyanartur/pif@stable#egg=pif
+    pip install https://bitbucket.org/barseghyanartur/pif/get/stable.tar.gz
 
-or install into python path
+or install into python path:
 
 .. code-block:: sh
 
     python setup.py install
 
-That's all. See the `Usage and examples` section for more.
+That's all. See the `Usage and examples`_ section for more.
 
 Usage and examples
 ==================
 Basic usage
 -----------
-Get public IP
+Get public IP:
 
 .. code-block:: python
 
     from pif import get_public_ip
     get_public_ip()
 
-Get public IP using preferred checker
+Get public IP using preferred checker:
 
 .. code-block:: python
 
     get_public_ip('v4.ident.me')
 
-List available checkers
+List available checkers:
 
 .. code-block:: python
 
@@ -59,10 +63,12 @@ it by defining your own ones as follows.
     from pif.base import BaseIPChecker, registry
 
     class MyPublicIPChecker(BaseIPChecker):
+
         uid = 'mypublicipchecker' # UID of the checker
 
         def get_public_ip(self):
             # TODO: Implement your logic
+
 
     # Register the checker
     registry.register(MyPublicIPChecker)
