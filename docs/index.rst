@@ -128,7 +128,7 @@ GPL 2.0/LGPL 2.1
 
 Support
 =======
-For any issues contact me at the e-mail given in the `Author` section.
+For any issues contact me at the e-mail given in the `Author`_ section.
 
 Author
 ======
