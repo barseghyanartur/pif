@@ -1,11 +1,22 @@
-whatismyip Package
-==================
+pif.checkers.whatismyip package
+===============================
 
-:mod:`pif_ip_checker` Module
-----------------------------
+Submodules
+----------
+
+pif.checkers.whatismyip.pif_ip_checker module
+---------------------------------------------
 
 .. automodule:: pif.checkers.whatismyip.pif_ip_checker
     :members:
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: pif.checkers.whatismyip
+    :members:
+    :undoc-members:
+    :show-inheritance:

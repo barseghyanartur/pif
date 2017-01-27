@@ -1,35 +1,29 @@
-#from __future__ import print_function
+from requests import get
+
+from pif.base import BasePublicIPChecker, registry
 
 __title__ = 'pif.checkers.wtfismyip.com.pif_ip_checker'
 __author__ = 'Bruno Santeramo'
 __copyright__ = 'Copyright (c) 2016 Bruno Santeramo'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('WtfismyipIPChecker',)
+__all__ = ('WtfismyipComIPChecker',)
 
-#import re
 
-from requests import get
+class WtfismyipComIPChecker(BasePublicIPChecker):
+    """Checks IPs using wtfismyip.com."""
 
-from pif.base import BasePublicIPChecker, registry
-
-class WtfismyipIPChecker(BasePublicIPChecker):
-    """
-    Checks IPs using wtfismyip.com.
-    """
     uid = 'wtfismyip.com'
 
     def get_public_ip(self):
-        """
-        Gets public IP.
+        """Get public IP.
 
         :return str:
         """
         try:
-            data = data = get('http://wtfismyip.com/text').text.rstrip()
-            return data
-        except Exception as e:
+            return get('http://wtfismyip.com/text', verify=False).text.rstrip()
+        except Exception as err:
             if self.verbose:
-                print(e)
+                self.logger.error(err)
 
 
-registry.register(WtfismyipIPChecker)
+registry.register(WtfismyipComIPChecker)

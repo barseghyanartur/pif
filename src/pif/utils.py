@@ -1,34 +1,41 @@
-from __future__ import print_function
-
-__title__ = 'pif.utils'
-__author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('ensure_autodiscover', 'list_checkers', 'get_public_ip')
+import logging
 
 from pif.base import registry
 from pif.discover import autodiscover
 
+__title__ = 'pif.utils'
+__author__ = 'Artur Barseghyan'
+__copyright__ = '2013-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'ensure_autodiscover',
+    'list_checkers',
+    'get_public_ip',
+)
+
+LOGGER = logging.getLogger(__name__)
+
+
 def ensure_autodiscover():
-    """
-    Ensures the IP checkers are discovered.
-    """
-    if not registry._registry:
+    """Ensure the IP checkers are auto-discovered."""
+    if not registry.registry:
         autodiscover()
 
+
 def list_checkers():
-    """
-    Lists available checkers.
+    """List available checkers.
 
     :return list:
     """
-    return registry._registry.keys()
+    ensure_autodiscover()
+    return registry.registry.keys()
+
 
 def get_public_ip(preferred_checker=None, verbose=False):
-    """
-    Gets IP using one of the services.
+    """Get IP using one of the services.
 
-    :param str preffered checker: Checker UID. If given, the preferred checker is used.
+    :param str preferred_checker: Checker UID. If given, the preferred
+        checker is used.
     :param bool verbose: If set to True, debug info is printed.
     :return str:
     """
@@ -42,25 +49,25 @@ def get_public_ip(preferred_checker=None, verbose=False):
             return False
 
         ip_checker = ip_checker_cls(verbose=verbose)
-        ip = ip_checker.get_public_ip()
+        public_ip = ip_checker.get_public_ip()
 
         if verbose:
-            print('provider: ', ip_checker_cls)
-        return ip
+            LOGGER.info('provider: %s', ip_checker_cls.__name__)
+        return public_ip
 
     # Using all checkers.
 
-    for ip_checker_name, ip_checker_cls in registry._registry.items():
+    for ip_checker_name, ip_checker_cls in registry.registry.items():
         ip_checker = ip_checker_cls(verbose=verbose)
         try:
-            ip = ip_checker.get_public_ip()
-            if ip:
+            public_ip = ip_checker.get_public_ip()
+            if public_ip:
                 if verbose:
-                    print('provider: ', ip_checker_cls)
-                return ip
+                    LOGGER.info('provider: %s', ip_checker_cls.__name__)
+                return public_ip
 
-        except Exception as e:
+        except Exception as err:
             if verbose:
-                print(e)
+                LOGGER.error(err)
 
     return False

@@ -1,11 +1,22 @@
-ident Package
-=============
+pif.checkers.ident package
+==========================
 
-:mod:`pif_ip_checker` Module
-----------------------------
+Submodules
+----------
+
+pif.checkers.ident.pif_ip_checker module
+----------------------------------------
 
 .. automodule:: pif.checkers.ident.pif_ip_checker
     :members:
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: pif.checkers.ident
+    :members:
+    :undoc-members:
+    :show-inheritance:

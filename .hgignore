@@ -1,9 +1,13 @@
 syntax: regexp
 \.pyc$
 \.hgignore~
-\.git
+\.git$
 \.gitignore~
 \.tox/
+\.cache/
+\.coverage$
+^htmlcov/
+\.py,cover
 
 ^build/
 ^builddocs/

@@ -1,132 +1,127 @@
 from __future__ import print_function
 
-__title__ = 'pif.tests'
-__author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('PifTest',)
-
+import logging
 import unittest
 
-from pif.discover import autodiscover
-from pif.utils import get_public_ip, list_checkers
-from pif.base import registry, BasePublicIPChecker
+from .base import BasePublicIPChecker, registry
+from .utils import get_public_ip, list_checkers, ensure_autodiscover
+from .discover import autodiscover
 
-PRINT_INFO = True
-TRACK_TIME = False
+__title__ = 'pif.tests'
+__author__ = 'Artur Barseghyan'
+__copyright__ = '2013-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'log_info',
+    'PifTest',
+)
 
-def print_info(func):
-    """
-    Prints some useful info.
-    """
-    if not PRINT_INFO:
+LOG_INFO = True
+
+LOGGER = logging.getLogger(__name__)
+
+
+def log_info(func):
+    """Prints some useful info."""
+    if not LOG_INFO:
         return func
 
     def inner(self, *args, **kwargs):
-        if TRACK_TIME:
-            import simple_timer
-            timer = simple_timer.Timer() # Start timer
-
         result = func(self, *args, **kwargs)
 
-        if TRACK_TIME:
-            timer.stop() # Stop timer
-
-        print('\n{0}'.format(func.__name__))
-        print('============================')
-        print('""" {0} """'.format(func.__doc__.strip()))
-        print('----------------------------')
+        LOGGER.info('\n%s', func.__name__)
+        LOGGER.info('============================')
+        LOGGER.info('""" %s """', func.__doc__.strip())
+        LOGGER.info('----------------------------')
         if result is not None:
-            print(result)
-        if TRACK_TIME:
-            print('done in {0} seconds'.format(timer.duration))
+            LOGGER.info(result)
 
         return result
     return inner
 
 
 class PifTest(unittest.TestCase):
-    """
-    Tests
-    """
+    """Tests."""
+
     def setUp(self):
+        """Set up."""
         pass
 
-    @print_info
+    @log_info
     def test_01_autodiscover(self):
-        """
-        Test ``autodiscover``.
-        """
+        """Test ``autodiscover``."""
         autodiscover()
-        self.assertTrue(len(registry._registry) > 0)
+        self.assertTrue(len(registry.registry) > 0)
 
-    @print_info
+    @log_info
     def test_02_get_public_ip(self):
-        """
-        Test get IP.
-        """
+        """Test get IP."""
         res = get_public_ip(verbose=True)
-        assert res
+        self.assertIsNotNone(res)
         return res
 
-    @print_info
-    def test_03_get_public_ip_using_preferred_checker_whatismyip(self):
-        """
-        Test get IP using preferred checker `whatismyip.com`.
-        """
-        res = get_public_ip('whatismyip.com', verbose=True)
-        assert res
+    @log_info
+    def _test_get_public_ip_using_preferred_checker(self, checker):
+        """Test get_public_ip using preferred checker."""
+        res = get_public_ip(checker, verbose=True)
         return res
 
-    @print_info
-    def test_04_get_public_ip_using_preferred_checker_ident(self):
-        """
-        Test get IP using preferred checker `ident.me`.
-        """
-        res = get_public_ip('ident.me', verbose=True)
-        assert res
+    @log_info
+    def test_03_get_public_ip_using_preferred_checker(self):
+        """Test get IP using preferred checker `ident.me`."""
+        checkers = list_checkers()
+        res = {}
+        failed = []
+        for checker in checkers:
+            _res = self._test_get_public_ip_using_preferred_checker(checker)
+            if _res is None:
+                failed.append(checker)
+            res.update({checker: _res})
+        self.assertTrue(
+            len(failed) == 0,
+            "Failed for {}".format(','.join(failed))
+        )
         return res
 
-    @print_info
-    def test_05_get_public_ip_using_preferred_checker_dyndns(self):
-        """
-        Test get IP using preferred checker `dyndns.com`.
-        """
-        res = get_public_ip('dyndns.com', verbose=True)
-        assert res
-        return res
-
-    @print_info
-    def test_06_list_checkers(self):
-        """
-        Lists all registered checkers.
-        """
+    @log_info
+    def test_04_list_checkers(self):
+        """Lists all registered checkers."""
         res = list_checkers()
         self.assertTrue(len(res) > 0)
         return res
 
-    @print_info
-    def test_07_unregister_checker(self):
-        """
-        Test unregister checker `dyndns.com`.
-        """
-        self.assertTrue('dyndns.com' in registry._registry.keys())
+    @log_info
+    def test_05_unregister_checker(self):
+        """Test un-register checker `dyndns.com`."""
+        self.assertTrue('dyndns.com' in registry.registry.keys())
         registry.unregister('dyndns.com')
-        self.assertTrue('dyndns.com' not in registry._registry.keys())
+        self.assertTrue('dyndns.com' not in registry.registry.keys())
 
-    @print_info
-    def test_08_register_custom_checker(self):
-        """
-        Test unregister checker `dyndns`.
-        """
+    @log_info
+    def test_06_register_custom_checker(self):
+        """Test un-register checker `dyndns`."""
         class MyPublicIPChecker(BasePublicIPChecker):
+            """MyPublicIPChecker."""
+
             uid = 'mypublicipchecker'
 
             def get_public_ip(self):
+                """Get public IP."""
                 return '8.8.8.8'
 
         registry.register(MyPublicIPChecker)
-        self.assertTrue('mypublicipchecker' in registry._registry.keys())
+        self.assertTrue('mypublicipchecker' in registry.registry.keys())
+
+    @log_info
+    def test_07_get_local_ip(self):
+        """Test get local IP."""
+        ensure_autodiscover()
+        ip_checker_cls = list(registry.registry.values())[0]
+
+        ip_checker = ip_checker_cls(verbose=False)
+        local_ip = ip_checker.get_local_ip()
+        self.assertIsNotNone(local_ip)
+
 
 if __name__ == '__main__':
     unittest.main()
