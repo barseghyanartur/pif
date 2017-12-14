@@ -8,9 +8,11 @@ syntax: regexp
 \.coverage$
 ^htmlcov/
 \.py,cover
+\.idea/
 
 ^build/
 ^builddocs/
 ^builddocs.zip
 ^dist/
 ^src/pif\.egg-info
+^deb_dist/
