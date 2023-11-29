@@ -2,9 +2,8 @@ from requests import get
 
 from pif.base import BasePublicIPChecker, registry
 
-__title__ = 'pif.checkers.ident.pif_ip_checker'
 __author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2024 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'IdentMeIPChecker',

@@ -27,7 +27,7 @@ try:
 except Exception as e:
     version = '0.1'
     project = u'pif'
-    copyright = u'2014, Artur Barseghyan <artur.barseghyan@gmail.com>'
+    copyright = u'2014-2024, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 # -- General configuration --------------------------------------------------
 
@@ -265,7 +265,7 @@ texinfo_documents = [
 epub_title = u'pif'
 epub_author = u'Artur Barseghyan <artur.barseghyan@gmail.com>'
 epub_publisher = u'Artur Barseghyan <artur.barseghyan@gmail.com>'
-epub_copyright = u'2013, Artur Barseghyan <artur.barseghyan@gmail.com>'
+epub_copyright = u'2013-2024, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

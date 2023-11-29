@@ -7,7 +7,7 @@ try:
 except:
     readme = ''
 
-version = '0.8.2'
+version = '0.9'
 
 exec_dirs = [
     'src/pif/bin/',
@@ -24,11 +24,10 @@ setup(
     long_description=readme,
     classifiers=[
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: Implementation :: PyPy",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
@@ -46,5 +45,5 @@ setup(
     },
     scripts=['src/pif/bin/get-public-ip',],
     license='GPL 2.0/LGPL 2.1',
-    install_requires=['requests>=1.2.3', 'argparse']
+    install_requires=['requests>=1.2.3']
 )

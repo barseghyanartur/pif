@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import os
 import logging
 
@@ -11,9 +9,8 @@ try:
 except ImportError:
     import_module = __import__
 
-__title__ = 'pif.discover'
 __author__ = 'Artur Barseghyan'
-__copyright__ = 'Copyright (c) 2013-2016 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2013-2024 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('autodiscover',)
 

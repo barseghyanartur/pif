@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import logging
 import unittest
 
@@ -7,9 +5,8 @@ from .base import BasePublicIPChecker, registry
 from .utils import get_public_ip, list_checkers, ensure_autodiscover
 from .discover import autodiscover
 
-__title__ = 'pif.tests'
 __author__ = 'Artur Barseghyan'
-__copyright__ = '2013-2016 Artur Barseghyan'
+__copyright__ = '2013-2024 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'log_info',

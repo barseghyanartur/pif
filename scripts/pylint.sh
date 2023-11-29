@@ -1,2 +1,0 @@
-reset
-pylint src/pif/

@@ -1,0 +1,166 @@
+[project]
+name = "pif"
+description = "Minimalistic, standalone alternative fake data generator with no dependencies."
+readme = "README.rst"
+version = "0.9"
+dependencies = ["requests",]
+authors = [
+    {name = "Artur Barseghyan", email = "artur.barseghyan@gmail.com"},
+]
+license = {text = "GPL 2.0/LGPL 2.1"}
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Topic :: Internet",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
+]
+keywords = ["public ip checker", "ip"]
+
+[project.urls]
+"Homepage" = "https://github.com/barseghyanartur/pif"
+"Bug Tracker" = "https://github.com/barseghyanartur/pif/issues"
+"Documentation" = "https://pif.readthedocs.io/"
+"Source Code" = "https://github.com/barseghyanartur/pif/"
+"Changelog" = "https://pif.readthedocs.io/en/latest/changelog.html"
+
+[project.optional-dependencies]
+all = ["pif[dev,test,docs]"]
+dev = [
+    "black",
+    "detect-secrets",
+    "doc8",
+    "ipython",
+    "isort",
+    "mypy",
+    "pip-tools",
+    "ruff",
+    "twine",
+]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+docs = [
+    "sphinx<6.0",
+    "sphinx-rtd-theme>=1.3.0",
+]
+
+[tool.black]
+line-length = 80
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # The following are specific to Black, you probably don't want those.
+  | blib2to3
+  | tests/data
+  | profiling
+  | migrations
+)/
+'''
+
+# Build system information below.
+# NOTE: You don't need this in your own Black configuration.
+[build-system]
+requires = ["setuptools>=41.0", "setuptools-scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.isort]
+profile = "black"
+combine_as_imports = true
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 80
+known_first_party = []
+known_third_party = []
+skip = ["wsgi.py", "builddocs/"]
+
+[tool.ruff]
+line-length = 80
+
+# Enable Pyflakes `E` and `F` codes by default.
+select = ["E", "F"]
+ignore = []
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "docs",
+]
+per-file-ignores = {}
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Assume Python 3.8.
+target-version = "py38"
+
+[tool.doc8]
+ignore-path = [
+    "docs/requirements.txt",
+    "fake.py.egg-info/SOURCES.txt",
+]
+
+[tool.pytest.ini_options]
+minversion = "0.1.3"
+addopts = [
+    "-ra",
+    "-vvv",
+    "-q",
+   "--cov=pif",
+   "--ignore=.tox",
+   "--ignore=requirements",
+   "--ignore=release",
+   "--ignore=tmp",
+   "--cov-report=html",
+   "--cov-report=term",
+   "--cov-report=annotate",
+   "--cov-append",
+   "--capture=no",
+]
+testpaths = [
+    "src/",
+]
+
+[tool.coverage.run]
+relative_files = true
+omit = [
+    ".tox/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "@overload",
+]
+
+[tool.mypy]
